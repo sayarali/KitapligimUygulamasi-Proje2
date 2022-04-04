@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "452260203589",
+    "project_id": "kitapligim-proje2",
+    "storage_bucket": "kitapligim-proje2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:452260203589:android:85e5ee868a0c3ebec6a72c",
+        "android_client_info": {
+          "package_name": "com.alisayar.kitapligimuygulamas_proje2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "452260203589-iq8cjhvtks98tf4s8th6tmc9bfn4qmsn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCa7_ZgGZYRPKuw-bk6UeFTR-wlAArq6nU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "452260203589-iq8cjhvtks98tf4s8th6tmc9bfn4qmsn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
