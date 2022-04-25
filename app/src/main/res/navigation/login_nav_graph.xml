@@ -18,11 +18,5 @@
         android:id="@+id/signUpFragment"
         android:name="com.alisayar.kitapligimuygulamas_proje2.login.signup.SignUpFragment"
         android:label="fragment_sign_up"
-        tools:layout="@layout/fragment_sign_up" >
-        <action
-            android:id="@+id/action_signUpFragment_to_signInFragment"
-            app:destination="@id/signInFragment"
-            app:popUpTo="@id/signInFragment"
-            app:popUpToInclusive="true" />
-    </fragment>
+        tools:layout="@layout/fragment_sign_up" />
 </navigation>
