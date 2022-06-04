@@ -1,4 +1,4 @@
-package com.alisayar.kitapligimuygulamas_proje2.search
+package com.alisayar.kitapligimuygulamas_proje2.discover
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.alisayar.kitapligimuygulamas_proje2.R
 
-class SearchFragment : Fragment() {
+class DiscoverFragment : Fragment() {
 
 
     override fun onCreateView(
@@ -15,7 +15,7 @@ class SearchFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_search, container, false)
+        return inflater.inflate(R.layout.fragment_discover, container, false)
     }
 
 
