@@ -4,7 +4,9 @@ import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.coroutines.launch
 
 private lateinit var auth: FirebaseAuth
 class SignInViewModel: ViewModel() {
@@ -41,15 +43,16 @@ class SignInViewModel: ViewModel() {
             _passwordError.value = ""
 
         if(!isError){
-            auth.signInWithEmailAndPassword(email.value.toString(), password.value.toString()).addOnCompleteListener {
-                if (it.isSuccessful){
-                    _loginSuccessEvent.value = true
+            viewModelScope.launch {
+                auth.signInWithEmailAndPassword(email.value.toString(), password.value.toString()).addOnCompleteListener {
+                    if (it.isSuccessful){
+                        _loginSuccessEvent.value = true
+                    }
+                }.addOnFailureListener {
+                    _toastMessage.value = it.localizedMessage
                 }
-            }.addOnFailureListener {
-                _toastMessage.value = it.localizedMessage
             }
         }
-
     }
 
     fun loginEventComplete(){
