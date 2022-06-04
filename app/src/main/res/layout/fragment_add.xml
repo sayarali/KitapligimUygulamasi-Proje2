@@ -1,21 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="viewModel"
+            type="com.alisayar.kitapligimuygulamas_proje2.add.AddViewModel" />
     </data>
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         tools:context=".add.AddFragment">
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/add_til"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="ISBN, Kitap adı, Yazar adı"
+            app:boxCornerRadiusBottomEnd="8dp"
+            app:boxCornerRadiusBottomStart="8dp"
+            app:boxCornerRadiusTopEnd="8dp"
+            app:boxCornerRadiusTopStart="8dp"
+            app:endIconMode="custom"
+            app:endIconDrawable="@drawable/ic_search_mini"
+            app:errorEnabled="true"
+            android:layout_margin="10dp">
 
-        <TextView
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/add_et"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:inputType="text"
+                android:text="@={viewModel.searchString}"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/add_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/hello_blank_fragment" />
+            booksData="@{viewModel.booksList}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
-    </FrameLayout>
+
+    </LinearLayout>
 </layout>
