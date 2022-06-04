@@ -14,6 +14,9 @@ class AddViewModel: ViewModel() {
     private val _booksList = MutableLiveData<List<Item>?>()
     val booksList: LiveData<List<Item>?> get() = _booksList
 
+    private val _bookId = MutableLiveData<String?>()
+    val bookId: LiveData<String?> get() = _bookId
+
     val searchString = MutableLiveData<String>()
 
     fun getBooks(search: String){
@@ -25,6 +28,16 @@ class AddViewModel: ViewModel() {
                 println(e.localizedMessage)
             }
         }
+    }
+
+    fun getBookId(bookId: String?){
+        bookId?.let {
+            _bookId.value = bookId
+        }
+    }
+
+    fun goFragmentDetailsComplete() {
+        _bookId.value = null
     }
 
     init {

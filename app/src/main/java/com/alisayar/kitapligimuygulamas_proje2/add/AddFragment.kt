@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.alisayar.kitapligimuygulamas_proje2.R
 import com.alisayar.kitapligimuygulamas_proje2.databinding.FragmentAddBinding
 import com.alisayar.kitapligimuygulamas_proje2.databinding.FragmentHomeBinding
@@ -24,7 +25,9 @@ class AddFragment : Fragment() {
         viewModel = ViewModelProvider(this)[AddViewModel::class.java]
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
-        binding.addRecyclerView.adapter = AddFragmentRecyclerAdapter()
+        binding.addRecyclerView.adapter = AddFragmentRecyclerAdapter( OnClickListener {
+            viewModel.getBookId(it)
+        })
         return binding.root
     }
 
@@ -37,7 +40,15 @@ class AddFragment : Fragment() {
         viewModel.searchString.observe(viewLifecycleOwner, Observer {
             viewModel.getBooks(it)
         })
-        
+
+        viewModel.bookId.observe(viewLifecycleOwner, Observer {
+            if(it != null){
+                val action = AddFragmentDirections.actionAddFragmentToBookDetailFragment(it)
+                findNavController().navigate(action)
+                viewModel.goFragmentDetailsComplete()
+            }
+        })
+
 
 
     }

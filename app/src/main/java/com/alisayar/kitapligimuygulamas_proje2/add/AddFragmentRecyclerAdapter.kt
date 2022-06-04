@@ -1,6 +1,5 @@
 package com.alisayar.kitapligimuygulamas_proje2.add
 
-import android.content.ClipData
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -9,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.alisayar.kitapligimuygulamas_proje2.databinding.AddFragmentRecyclerRowBinding
 import com.alisayar.kitapligimuygulamas_proje2.network.Item
 
-class AddFragmentRecyclerAdapter: ListAdapter<Item, AddFragmentRecyclerAdapter.ViewHolder>(DiffUtilCallback) {
+class AddFragmentRecyclerAdapter(private val onClickListener: OnClickListener): ListAdapter<Item, AddFragmentRecyclerAdapter.ViewHolder>(DiffUtilCallback) {
     class ViewHolder(private val binding: AddFragmentRecyclerRowBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(bookModel: Item?){
             binding.model = bookModel
@@ -25,10 +24,17 @@ class AddFragmentRecyclerAdapter: ListAdapter<Item, AddFragmentRecyclerAdapter.V
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
+        holder.itemView.setOnClickListener {
+            onClickListener.onClick(item.id)
+        }
         holder.bind(item)
     }
 
 
+}
+
+class OnClickListener(val clickListener: (bookId: String?) -> Unit){
+    fun onClick(bookId: String?) = clickListener(bookId)
 }
 
 object DiffUtilCallback: DiffUtil.ItemCallback<Item>() {
