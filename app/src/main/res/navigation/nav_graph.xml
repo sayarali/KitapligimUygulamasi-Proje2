@@ -27,5 +27,18 @@
     <fragment
         android:id="@+id/addFragment"
         android:name="com.alisayar.kitapligimuygulamas_proje2.add.AddFragment"
-        android:label="Kitap Ara" />
+        android:label="Kitap Ara" >
+        <action
+            android:id="@+id/action_addFragment_to_bookDetailFragment"
+            app:destination="@id/bookDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/bookDetailFragment"
+        android:name="com.alisayar.kitapligimuygulamas_proje2.bookdetail.BookDetailFragment"
+        android:label="BookDetailFragment" >
+        <argument
+            android:name="bookId"
+            app:argType="string"
+            android:defaultValue="null" />
+    </fragment>
 </navigation>

@@ -5,6 +5,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.create
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 private const val BASE_URL = "https://www.googleapis.com/books/v1/"
@@ -22,6 +23,9 @@ interface BookApiService {
 
     @GET("volumes?maxResults=40&printType=books")
     suspend fun getBooksData(@Query("q") search: String): BookModel
+
+    @GET("volumes/{id}")
+    suspend fun getBookDetails(@Path("id") id: String): Item
 
 }
 
