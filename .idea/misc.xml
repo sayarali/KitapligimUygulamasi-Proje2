@@ -5,10 +5,13 @@
       <map>
         <entry key="app/src/main/res/drawable/ic_barcode.xml" value="0.336" />
         <entry key="app/src/main/res/drawable/ic_email.xml" value="0.336" />
+        <entry key="app/src/main/res/drawable/ic_remove.xml" value="0.3345" />
         <entry key="app/src/main/res/drawable/ic_search.xml" value="0.336" />
         <entry key="app/src/main/res/drawable/ic_user.xml" value="0.336" />
+        <entry key="app/src/main/res/drawable/rounded_bottom_sheet.xml" value="0.3345" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.3338541666666667" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.3338541666666667" />
+        <entry key="app/src/main/res/layout/add_bottom_sheet.xml" value="0.3328125" />
         <entry key="app/src/main/res/layout/add_fragment_recycler_row.xml" value="0.3328125" />
         <entry key="app/src/main/res/layout/fragment_add.xml" value="0.3338541666666667" />
         <entry key="app/src/main/res/layout/fragment_blank.xml" value="0.3338541666666667" />

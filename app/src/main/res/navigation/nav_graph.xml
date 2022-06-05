@@ -35,10 +35,10 @@
     <fragment
         android:id="@+id/bookDetailFragment"
         android:name="com.alisayar.kitapligimuygulamas_proje2.bookdetail.BookDetailFragment"
-        android:label="BookDetailFragment" >
+        android:label="Kitap Detayı">
         <argument
             android:name="bookId"
-            app:argType="string"
-            android:defaultValue="null" />
+            android:defaultValue="null"
+            app:argType="string" />
     </fragment>
 </navigation>
