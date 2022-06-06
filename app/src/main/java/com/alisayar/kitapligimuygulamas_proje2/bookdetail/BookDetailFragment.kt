@@ -82,11 +82,15 @@ class BookDetailFragment : Fragment() {
             binding.apply {
                 detailReadsFab.visibility = View.VISIBLE
                 detailTobereadFab.visibility = View.VISIBLE
+                detailReadsFab.isClickable = true
+                detailTobereadFab.isClickable = true
             }
         } else {
             binding.apply {
                 detailReadsFab.visibility = View.INVISIBLE
                 detailTobereadFab.visibility = View.INVISIBLE
+                detailReadsFab.isClickable = false
+                detailTobereadFab.isClickable = false
             }
         }
     }
