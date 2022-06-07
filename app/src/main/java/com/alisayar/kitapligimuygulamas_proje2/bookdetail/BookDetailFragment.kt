@@ -1,5 +1,6 @@
 package com.alisayar.kitapligimuygulamas_proje2.bookdetail
 
+import android.content.DialogInterface
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -13,9 +14,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.alisayar.kitapligimuygulamas_proje2.R
 import com.alisayar.kitapligimuygulamas_proje2.databinding.FragmentBookDetailBinding
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 
 
 class BookDetailFragment : Fragment() {
@@ -31,6 +32,8 @@ class BookDetailFragment : Fragment() {
     private val toBottom: Animation by lazy { AnimationUtils.loadAnimation(requireContext(), R.anim.to_bottom_anim) }
 
     private var clicked = false
+
+    private var bookId: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,6 +56,7 @@ class BookDetailFragment : Fragment() {
         viewModel.bookDetail.observe(viewLifecycleOwner, Observer {
             if(it != null){
                 binding.model = it
+                bookId = it.id
                 (activity as AppCompatActivity).supportActionBar?.title = it.volumeInfo?.title
             }
         })
@@ -61,12 +65,47 @@ class BookDetailFragment : Fragment() {
         binding.detailFab.setOnClickListener {
             onFabClicked()
         }
-        binding.detailReadsFab.setOnClickListener {
-            Toast.makeText(requireContext(), "Okunanlar", Toast.LENGTH_LONG).show()
-        }
-        binding.detailTobereadFab.setOnClickListener {
-            Toast.makeText(requireContext(), "Okunacaklar", Toast.LENGTH_LONG).show()
-        }
+
+        viewModel.isOnReadsEvent.observe(viewLifecycleOwner, Observer {
+            if(it){
+                Toast.makeText(requireContext(), "Bu kitap zaten okunanlar listenizde.", Toast.LENGTH_LONG).show()
+                viewModel.isOnReadsComplete()
+            }
+
+        })
+
+        viewModel.isOnToBeReadsEvent.observe(viewLifecycleOwner, Observer {
+            if(it){
+                Toast.makeText(requireContext(), "Bu kitap zaten okunacaklar listenizde.", Toast.LENGTH_LONG).show()
+                viewModel.isOnToBeReadsComplete()
+            }
+        })
+
+        viewModel.isSuccessAdded.observe(viewLifecycleOwner, Observer {
+            if(it){
+                Toast.makeText(requireContext(), "Başarıyla eklendi.", Toast.LENGTH_LONG).show()
+                viewModel.successAddedComplete()
+            }
+        })
+
+
+        viewModel.showAlertDialog.observe(viewLifecycleOwner, Observer {
+            if(it){
+                val alertDialogBuilder = AlertDialog.Builder(requireContext())
+                alertDialogBuilder.setMessage("Kitap hakkındaki düşüncelerinizi diğer kullanıcılar ile paylaşmak ister misiniz?")
+                alertDialogBuilder.setPositiveButton("Evet", DialogInterface.OnClickListener { dialogInterface, i ->
+                    bookId?.let { id ->
+                        val action = BookDetailFragmentDirections.actionBookDetailFragmentToAddPostFragment(id)
+                        findNavController().navigate(action)
+                    }
+                })
+                alertDialogBuilder.setNegativeButton("Hayır", DialogInterface.OnClickListener { dialogInterface, i ->
+
+                })
+                alertDialogBuilder.show()
+                viewModel.showAlertDialogComplete()
+            }
+        })
 
 
     }

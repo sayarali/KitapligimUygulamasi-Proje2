@@ -38,7 +38,22 @@
         android:label="Kitap Detayı">
         <argument
             android:name="bookId"
-            android:defaultValue="null"
             app:argType="string" />
+        <action
+            android:id="@+id/action_bookDetailFragment_to_addPostFragment"
+            app:destination="@id/addPostFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addPostFragment"
+        android:name="com.alisayar.kitapligimuygulamas_proje2.addpost.AddPostFragment"
+        android:label="Gönderi ekle">
+        <argument
+            android:name="bookId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_addPostFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>
