@@ -9,18 +9,17 @@ import com.alisayar.kitapligimuygulamas_proje2.network.BookModel
 import com.alisayar.kitapligimuygulamas_proje2.network.BooksApi
 import com.alisayar.kitapligimuygulamas_proje2.network.Item
 import com.google.firebase.Timestamp
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.launch
 import java.lang.Exception
 
 class ProfileViewModel(private val userId: String?) : ViewModel(){
 
+    private var auth: FirebaseAuth = FirebaseAuth.getInstance()
     private var firestore: FirebaseFirestore = FirebaseFirestore.getInstance()
 
-    init {
-        getUserDataFirebase(userId)
-        getPostDataFirebase(userId)
-    }
+
 
     private val _postList = MutableLiveData<List<PostModel>?>()
     val postList: LiveData<List<PostModel>?> get() = _postList
@@ -35,6 +34,14 @@ class ProfileViewModel(private val userId: String?) : ViewModel(){
     val following = MutableLiveData<Int>()
     val postCount = MutableLiveData<Int>()
 
+    private val _anyUserActive = MutableLiveData<Boolean>()
+    val anyUserActive: LiveData<Boolean> get() = _anyUserActive
+
+    init {
+        getUserDataFirebase(userId)
+        getPostDataFirebase(userId)
+        _anyUserActive.value = userId != auth.currentUser?.uid
+    }
     private fun getUserDataFirebase(userId: String?){
         viewModelScope.launch {
             userId?.let {
@@ -64,7 +71,7 @@ class ProfileViewModel(private val userId: String?) : ViewModel(){
         }
     }
 
-    fun getPostDataFirebase(userId: String?){
+    private fun getPostDataFirebase(userId: String?){
 
         viewModelScope.launch {
             userId?.let {
@@ -98,16 +105,4 @@ class ProfileViewModel(private val userId: String?) : ViewModel(){
         }
     }
 
-    private fun getBookData(bookId: String) {
-        var bookModel: Item? = null
-        viewModelScope.launch {
-            try {
-                bookModel = BooksApi.retrofitService.getBookDetails(bookId)
-                println(bookModel?.volumeInfo?.title)
-            } catch (e: Exception) {
-            }
-
-        }
-        //println(bookModel?.volumeInfo?.title)
-    }
 }

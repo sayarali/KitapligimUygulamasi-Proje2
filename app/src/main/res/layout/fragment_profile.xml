@@ -187,6 +187,25 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:text="@{viewModel.bioText}" />
+                <Button
+                    android:id="@+id/profile_follow_button"
+                    android:layout_width="150dp"
+                    android:layout_height="40dp"
+                    android:text="Takip Et"
+                    android:layout_gravity="center"
+                    android:textAllCaps="false"
+                    android:textSize="12sp"
+                    android:layout_margin="8dp"/>
+                <Button
+                    android:id="@+id/profile_edit_button"
+                    android:layout_width="150dp"
+                    android:layout_height="40dp"
+                    android:text="Profili Düzenle"
+                    android:layout_gravity="center"
+                    android:visibility="gone"
+                    android:textAllCaps="false"
+                    android:textSize="12sp"
+                    android:layout_margin="8dp"/>
             </LinearLayout>
 
             <TextView
@@ -201,7 +220,7 @@
                 postData="@{viewModel.postList}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp" />
+                android:layout_margin="4dp"/>
 
 
         </LinearLayout>
