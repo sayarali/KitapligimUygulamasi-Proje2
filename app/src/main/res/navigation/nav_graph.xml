@@ -18,7 +18,12 @@
         android:id="@+id/profileFragment"
         android:name="com.alisayar.kitapligimuygulamas_proje2.profile.ProfileFragment"
         android:label="Profil"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile" >
+        <argument
+            android:name="userId"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
     <fragment
         android:id="@+id/discoverFragment"
         android:name="com.alisayar.kitapligimuygulamas_proje2.discover.DiscoverFragment"

@@ -46,8 +46,6 @@ class MainActivity : AppCompatActivity() {
 
 
 
-
-
         navController.addOnDestinationChangedListener{_, destination: NavDestination, _ ->
 
         }
