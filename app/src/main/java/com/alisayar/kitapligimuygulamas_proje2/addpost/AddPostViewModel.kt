@@ -11,6 +11,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.launch
 import java.lang.Exception
+import java.util.*
 
 class AddPostViewModel(private val bookId: String): ViewModel() {
 
@@ -46,12 +47,14 @@ class AddPostViewModel(private val bookId: String): ViewModel() {
             viewModelScope.launch {
                 val time = Timestamp.now()
                 val postHashMap = hashMapOf<String, Any>()
+                val postId = UUID.randomUUID().toString()
+                postHashMap["postId"] = postId
                 postHashMap["userId"] = auth.currentUser!!.uid
                 postHashMap["bookId"] = bookId
                 postHashMap["time"] = time
                 postHashMap["rating"] = rating
                 postHashMap["comment"] = comment
-                firestore.collection("Posts").document().set(postHashMap).addOnCompleteListener {
+                firestore.collection("Posts").document(postId).set(postHashMap).addOnCompleteListener {
                     if(it.isSuccessful){
                         _successEvent.value = true
                         _toastMessage.value = "Gönderi başarıyla yüklendi."

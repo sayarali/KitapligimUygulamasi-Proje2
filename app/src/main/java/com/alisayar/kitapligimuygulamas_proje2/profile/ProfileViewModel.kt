@@ -82,12 +82,12 @@ class ProfileViewModel(private val userId: String?) : ViewModel(){
                     val documents = it.documents
                     viewModelScope.launch {
                         for (document in documents){
-
+                            val postId = document["postId"].toString()
                             val bookModel = BooksApi.retrofitService.getBookDetails(document["bookId"].toString())
                             val comment = document["comment"].toString()
                             val rating = document["rating"].toString()
                             val time = document["time"] as Timestamp
-                            val postModel = PostModel(bookModel, userId, rating.toFloatOrNull(), comment, time)
+                            val postModel = PostModel(postId, bookModel, userId, rating.toFloatOrNull(), comment, time)
                             list.add(postModel)
                         }
                         list.sortByDescending {
