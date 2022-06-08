@@ -45,23 +45,28 @@ class AddPostViewModel(private val bookId: String): ViewModel() {
     fun addPostFirebase(bookId: String){
         auth.currentUser?.let {
             viewModelScope.launch {
-                val time = Timestamp.now()
-                val postHashMap = hashMapOf<String, Any>()
-                val postId = UUID.randomUUID().toString()
-                postHashMap["postId"] = postId
-                postHashMap["userId"] = auth.currentUser!!.uid
-                postHashMap["bookId"] = bookId
-                postHashMap["time"] = time
-                postHashMap["rating"] = rating
-                postHashMap["comment"] = comment
-                firestore.collection("Posts").document(postId).set(postHashMap).addOnCompleteListener {
-                    if(it.isSuccessful){
-                        _successEvent.value = true
-                        _toastMessage.value = "Gönderi başarıyla yüklendi."
+                if(rating.value != null && comment.value != null){
+                    val time = Timestamp.now()
+                    val postHashMap = hashMapOf<String, Any>()
+                    val postId = UUID.randomUUID().toString()
+                    postHashMap["postId"] = postId
+                    postHashMap["userId"] = auth.currentUser!!.uid
+                    postHashMap["bookId"] = bookId
+                    postHashMap["time"] = time
+                    postHashMap["rating"] = rating.value!!
+                    postHashMap["comment"] = comment.value!!
+                    firestore.collection("Posts").document(postId).set(postHashMap).addOnCompleteListener {
+                        if(it.isSuccessful){
+                            _successEvent.value = true
+                            _toastMessage.value = "Gönderi başarıyla yüklendi."
+                        }
+                    }.addOnFailureListener {
+                        _toastMessage.value = it.localizedMessage
                     }
-                }.addOnFailureListener {
-                    _toastMessage.value = it.localizedMessage
+                } else {
+                    _toastMessage.value = "Puan verme ve yorum alanını boş bırakmayınız."
                 }
+
             }
         }
     }
