@@ -25,6 +25,7 @@ class SignUpViewModel() : ViewModel(){
     val password = MutableLiveData<String>()
     val passwordVerify = MutableLiveData<String>()
     private val ppUrl = "https://firebasestorage.googleapis.com/v0/b/kitapligim-proje2.appspot.com/o/user.png?alt=media&token=c30b12f5-7120-4e73-a882-eeebab1ac758"
+    private val bioText = ""
 
     private val _usernameError = MutableLiveData<String>()
     val usernameError: LiveData<String> get() = _usernameError
@@ -78,7 +79,7 @@ class SignUpViewModel() : ViewModel(){
             Log.e("SignUpViewModel", "EditText'lerden hatalı veri geliyor.")
         } else {
 
-            val userModel = UserModel(username.value.toString(), email.value.toString(), password.value.toString(), ppUrl)
+            val userModel = UserModel(username.value.toString(), email.value.toString(), password.value.toString(), ppUrl, bioText)
             viewModelScope.launch {
                 try {
                     auth.createUserWithEmailAndPassword(userModel.email, userModel.password).addOnCompleteListener {
@@ -104,7 +105,7 @@ class SignUpViewModel() : ViewModel(){
                 userHashMap["username"] = userModel.userName
                 userHashMap["email"] = userModel.email
                 userHashMap["ppUrl"] = userModel.ppUrl
-
+                userHashMap["bioText"] = userModel.bioText
                 firestore.collection("Users").document(user.uid).set(userHashMap).addOnCompleteListener {
                     _successRegisterEvent.value = true
                 }.addOnFailureListener {

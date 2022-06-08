@@ -4,5 +4,6 @@ data class UserModel(
     var userName: String,
     var email: String,
     var password: String,
-    var ppUrl: String
+    var ppUrl: String,
+    var bioText: String
 )
