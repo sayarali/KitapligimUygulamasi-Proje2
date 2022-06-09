@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.alisayar.kitapligimuygulamas_proje2.model.PostModel
+import com.alisayar.kitapligimuygulamas_proje2.model.UserModel
 import com.alisayar.kitapligimuygulamas_proje2.network.BookModel
 import com.alisayar.kitapligimuygulamas_proje2.network.BooksApi
 import com.alisayar.kitapligimuygulamas_proje2.network.Item
@@ -75,6 +76,10 @@ class ProfileViewModel(private val userId: String?) : ViewModel(){
 
         viewModelScope.launch {
             userId?.let {
+                lateinit var userModel: UserModel
+                firestore.collection("Users").document(userId).get().addOnSuccessListener {
+                    userModel = UserModel(it["id"].toString(), it["username"].toString(), it["email"].toString(), it["bioText"].toString(), it["ppUrl"].toString())
+                }
 
                 val list = arrayListOf<PostModel>()
                 firestore.collection("Posts").whereEqualTo("userId", userId).get().addOnSuccessListener {
@@ -87,7 +92,7 @@ class ProfileViewModel(private val userId: String?) : ViewModel(){
                             val comment = document["comment"].toString()
                             val rating = document["rating"].toString()
                             val time = document["time"] as Timestamp
-                            val postModel = PostModel(postId, bookModel, userId, rating.toFloatOrNull(), comment, time)
+                            val postModel = PostModel(postId, bookModel, userModel, rating.toFloatOrNull(), comment, time)
                             list.add(postModel)
                         }
                         list.sortByDescending {

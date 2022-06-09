@@ -7,7 +7,7 @@ import com.google.firebase.Timestamp
 data class PostModel(
     val postId: String,
     val bookModel: Item?,
-    val userId: String,
+    val userModel: UserModel,
     val rating: Float?,
     val comment: String?,
     val time: Timestamp
