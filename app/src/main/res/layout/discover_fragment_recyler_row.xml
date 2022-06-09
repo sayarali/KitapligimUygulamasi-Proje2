@@ -45,7 +45,7 @@
 
 
                     <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/circleImageView"
+                        android:id="@+id/discover_userpp"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:layout_gravity="center"
@@ -56,16 +56,16 @@
 
                     <TextView
 
-                        android:id="@+id/textView5"
+                        android:id="@+id/discover_username"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_margin="4dp"
                         android:layout_marginStart="32dp"
                         android:text="@{postModel.userModel.username}"
-                        app:layout_constraintBottom_toBottomOf="@+id/circleImageView"
-                        app:layout_constraintStart_toEndOf="@+id/circleImageView"
-                        app:layout_constraintTop_toTopOf="@+id/circleImageView" />
+                        app:layout_constraintBottom_toBottomOf="@+id/discover_userpp"
+                        app:layout_constraintStart_toEndOf="@+id/discover_userpp"
+                        app:layout_constraintTop_toTopOf="@+id/discover_userpp" />
 
                     <ImageView
                         android:id="@+id/imageView6"
@@ -73,14 +73,15 @@
                         android:layout_height="20dp"
                         android:layout_marginEnd="8dp"
                         android:src="@drawable/ic_star"
-                        app:layout_constraintBottom_toBottomOf="@+id/textView5"
+                        app:layout_constraintBottom_toBottomOf="@+id/discover_username"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/textView5" />
+                        app:layout_constraintTop_toTopOf="@+id/discover_username" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="4dp"
+                        android:textSize="12sp"
                         android:text="@{String.valueOf(postModel.rating)}"
                         app:layout_constraintBottom_toBottomOf="@+id/imageView6"
                         app:layout_constraintEnd_toStartOf="@+id/imageView6"
@@ -97,7 +98,7 @@
                         android:layout_marginTop="4dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/circleImageView" />
+                        app:layout_constraintTop_toBottomOf="@+id/discover_userpp" />
 
 
                     <TextView

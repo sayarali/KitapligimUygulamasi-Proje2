@@ -19,6 +19,12 @@ class DiscoverViewModel: ViewModel() {
     private val _postList = MutableLiveData<List<PostModel>?>()
     val postList: LiveData<List<PostModel>?> get() = _postList
 
+    private val _userId = MutableLiveData<String?>()
+    val userId: LiveData<String?> get() = _userId
+
+    private val _postId = MutableLiveData<String?>()
+    val postId: LiveData<String?> get() = _postId
+
     init {
         getPostDataFirebase()
     }
@@ -54,5 +60,24 @@ class DiscoverViewModel: ViewModel() {
             }
         }
 
+    }
+
+
+    fun getUserId(userId: String?){
+        if(userId != null)
+            _userId.value = userId
+    }
+
+    fun completeNavigateProfile(){
+        _userId.value = null
+    }
+
+    fun getPostId(postId: String?){
+        if(postId != null)
+            _postId.value = postId
+    }
+
+    fun completeNavigatePost(){
+        _postId.value = null
     }
 }

@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.alisayar.kitapligimuygulamas_proje2.R
 import com.alisayar.kitapligimuygulamas_proje2.convertTimeFromTimestamp
 import com.alisayar.kitapligimuygulamas_proje2.databinding.FragmentDiscoverBinding
@@ -25,14 +27,30 @@ class DiscoverFragment : Fragment() {
         viewModel = ViewModelProvider(this)[DiscoverViewModel::class.java]
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
-        binding.discoverRecylerView.adapter = DiscoverFragmentRecyclerAdapter()
+        binding.discoverRecylerView.adapter = DiscoverFragmentRecyclerAdapter(OnClickListener {
+            viewModel.getPostId(it)
+        }, UserClickListener {
+            viewModel.getUserId(it)
+        })
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel.userId.observe(viewLifecycleOwner, Observer {
+            if(it != null){
+                val action = DiscoverFragmentDirections.actionDiscoverFragmentToProfileFragment(it)
+                findNavController().navigate(action)
+                viewModel.completeNavigateProfile()
+            }
+        })
 
+        viewModel.postId.observe(viewLifecycleOwner, Observer {
+            if(it != null){
+                println("post fragmente gidiliyoooor $it")
+            }
+        })
 
     }
 

@@ -28,7 +28,11 @@
         android:id="@+id/discoverFragment"
         android:name="com.alisayar.kitapligimuygulamas_proje2.discover.DiscoverFragment"
         android:label="Keşfet"
-        tools:layout="@layout/fragment_discover" />
+        tools:layout="@layout/fragment_discover" >
+        <action
+            android:id="@+id/action_discoverFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
     <fragment
         android:id="@+id/addFragment"
         android:name="com.alisayar.kitapligimuygulamas_proje2.add.AddFragment"

@@ -8,7 +8,7 @@ import com.alisayar.kitapligimuygulamas_proje2.databinding.DiscoverFragmentRecyl
 import com.alisayar.kitapligimuygulamas_proje2.model.PostModel
 import com.alisayar.kitapligimuygulamas_proje2.profile.DiffUtilCallback
 
-class DiscoverFragmentRecyclerAdapter: ListAdapter<PostModel, DiscoverFragmentRecyclerAdapter.ViewHolder>(DiffUtilCallback) {
+class DiscoverFragmentRecyclerAdapter(private val onClickListener: OnClickListener, private val userOnclickListener: UserClickListener): ListAdapter<PostModel, DiscoverFragmentRecyclerAdapter.ViewHolder>(DiffUtilCallback) {
     class ViewHolder(val binding: DiscoverFragmentRecylerRowBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(postModel: PostModel?) {
             binding.postModel = postModel
@@ -25,6 +25,22 @@ class DiscoverFragmentRecyclerAdapter: ListAdapter<PostModel, DiscoverFragmentRe
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
+        holder.itemView.setOnClickListener {
+            onClickListener.onClick(item.postId)
+        }
+        holder.binding.discoverUsername.setOnClickListener {
+            userOnclickListener.onClick(item.userModel.id)
+        }
+        holder.binding.discoverUserpp.setOnClickListener {
+            userOnclickListener.onClick(item.userModel.id)
+        }
         holder.bind(item)
     }
+}
+
+class OnClickListener(val clickListener: (postId: String?) -> Unit){
+    fun onClick(postId: String?) = clickListener(postId)
+}
+class UserClickListener(val clickListener: (userId: String?) -> Unit){
+    fun onClick(userId: String?) = clickListener(userId)
 }
