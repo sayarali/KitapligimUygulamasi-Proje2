@@ -39,7 +39,7 @@ class ProfileFragment : Fragment() {
         viewModelFactory = ProfileViewModelFactory(userId)
         viewModel = ViewModelProvider(this, viewModelFactory)[ProfileViewModel::class.java]
         binding.viewModel = viewModel
-        binding.lifecycleOwner = this
+        binding.lifecycleOwner = viewLifecycleOwner
         binding.profileRecyclerView.adapter = ProfileFragmentRecyclerAdapter()
         binding.profileRecyclerView.layoutManager = GridLayoutManager(requireContext(), 3)
         return binding.root

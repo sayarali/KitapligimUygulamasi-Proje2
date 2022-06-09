@@ -24,7 +24,7 @@ class AddFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_add, container, false)
         viewModel = ViewModelProvider(this)[AddViewModel::class.java]
         binding.viewModel = viewModel
-        binding.lifecycleOwner = this
+        binding.lifecycleOwner = viewLifecycleOwner
         binding.addRecyclerView.adapter = AddFragmentRecyclerAdapter( OnClickListener {
             viewModel.getBookId(it)
         })
@@ -37,9 +37,7 @@ class AddFragment : Fragment() {
         setHasOptionsMenu(true)
 
 
-        viewModel.searchString.observe(viewLifecycleOwner, Observer {
-            viewModel.getBooks(it)
-        })
+
 
         viewModel.bookId.observe(viewLifecycleOwner, Observer {
             if(it != null){
@@ -48,6 +46,10 @@ class AddFragment : Fragment() {
                 viewModel.goFragmentDetailsComplete()
             }
         })
+
+        binding.addTil.setEndIconOnClickListener {
+            viewModel.getBooks()
+        }
 
 
 

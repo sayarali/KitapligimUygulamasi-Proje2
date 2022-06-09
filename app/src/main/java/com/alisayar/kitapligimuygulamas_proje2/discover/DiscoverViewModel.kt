@@ -9,6 +9,9 @@ import com.alisayar.kitapligimuygulamas_proje2.model.UserModel
 import com.alisayar.kitapligimuygulamas_proje2.network.BooksApi
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 
@@ -26,18 +29,57 @@ class DiscoverViewModel: ViewModel() {
     val postId: LiveData<String?> get() = _postId
 
     init {
-        getPostDataFirebase()
+        viewModelScope.launch(Dispatchers.IO) {
+            getPostDataFirebase()
+        }
+
     }
 
-    private fun getPostDataFirebase(){
+    private suspend fun getPostDataFirebase(){
 
         viewModelScope.launch {
             val list = arrayListOf<PostModel>()
             firestore.collection("Posts").get().addOnSuccessListener {
                 val documents = it.documents
-                viewModelScope.launch {
+                viewModelScope.launch() {
                     for (document in documents){
-                        lateinit var userModel: UserModel
+                        var userModel: UserModel = UserModel("", "", "", "", "")
+                        firestore.collection("Users").document(document["userId"].toString()).get().addOnSuccessListener { doc ->
+                            userModel = UserModel(doc["id"].toString(), doc["username"].toString(), doc["email"].toString(), doc["bioText"].toString(), doc["ppUrl"].toString())
+                        }
+                        val postId = document.id
+                        val bookModel = BooksApi.retrofitService.getBookDetails(document["bookId"].toString())
+
+                        val comment = document["comment"].toString()
+                        val rating = document["rating"].toString()
+                        val time = document["time"] as Timestamp
+                        val postModel = PostModel(postId, bookModel, userModel, rating.toFloatOrNull(), comment, time)
+
+                        list.add(postModel)
+                    }
+                    list.sortByDescending {
+                        it.time
+                    }
+                    _postList.value = list
+                }
+
+            }
+        }
+
+    }
+
+
+    private fun getPostDataFirebaseCor(){
+
+
+
+        viewModelScope.launch {
+            val list = arrayListOf<PostModel>()
+            firestore.collection("Posts").get().addOnSuccessListener {
+                val documents = it.documents
+                viewModelScope.launch() {
+                    for (document in documents){
+                        var userModel: UserModel = UserModel("", "", "", "", "")
                         firestore.collection("Users").document(document["userId"].toString()).get().addOnSuccessListener { doc ->
                             userModel = UserModel(doc["id"].toString(), doc["username"].toString(), doc["email"].toString(), doc["bioText"].toString(), doc["ppUrl"].toString())
                         }

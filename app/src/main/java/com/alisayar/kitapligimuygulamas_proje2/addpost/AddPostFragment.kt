@@ -30,7 +30,7 @@ class AddPostFragment : Fragment() {
         viewModelFactory = AddPostViewModelFactory(arguments.bookId)
         viewModel = ViewModelProvider(this, viewModelFactory)[AddPostViewModel::class.java]
         binding.viewModel = viewModel
-        binding.lifecycleOwner = this
+        binding.lifecycleOwner = viewLifecycleOwner
 
 
         return binding.root

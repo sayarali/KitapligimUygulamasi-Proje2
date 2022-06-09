@@ -123,9 +123,11 @@ class ProfileViewModel(private val userId: String?) : ViewModel(){
                 firestore.collection("Users").document(userId).collection("Followers").get().addOnSuccessListener {
                     val documents = it.documents
                     for (document in documents){
-                        if(document["userId"] == auth.currentUser!!.uid)
+                        if(document["userId"] == auth.currentUser!!.uid){
                             _isFollowing.value = true
-                        break
+                            break
+                        }
+
                     }
                 }
             }

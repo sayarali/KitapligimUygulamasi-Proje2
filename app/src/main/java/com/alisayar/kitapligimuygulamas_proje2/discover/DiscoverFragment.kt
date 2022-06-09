@@ -26,7 +26,7 @@ class DiscoverFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_discover, container, false)
         viewModel = ViewModelProvider(this)[DiscoverViewModel::class.java]
         binding.viewModel = viewModel
-        binding.lifecycleOwner = this
+        binding.lifecycleOwner = viewLifecycleOwner
         binding.discoverRecylerView.adapter = DiscoverFragmentRecyclerAdapter(OnClickListener {
             viewModel.getPostId(it)
         }, UserClickListener {

@@ -26,6 +26,8 @@ class HomeFragment : Fragment() {
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
         viewModel = ViewModelProvider(this)[HomeViewModel::class.java]
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
 
         return binding.root
     }
@@ -33,9 +35,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.homeFab.setOnClickListener {
-            viewModel.goAddFragment()
-        }
+
 
         viewModel.goAddFragmentEvent.observe(viewLifecycleOwner, Observer {
             if (it){

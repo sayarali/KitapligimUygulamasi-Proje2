@@ -19,11 +19,15 @@ class AddViewModel: ViewModel() {
 
     val searchString = MutableLiveData<String>()
 
-    fun getBooks(search: String){
+    init {
+
+    }
+
+    fun getBooks(){
         _booksList.value = ArrayList()
         viewModelScope.launch {
             try {
-                _booksList.value = BooksApi.retrofitService.getBooksData(search).items
+                _booksList.value = BooksApi.retrofitService.getBooksData(searchString.value.toString()).items
             } catch (e: Exception){
                 println(e.localizedMessage)
             }
@@ -40,8 +44,6 @@ class AddViewModel: ViewModel() {
         _bookId.value = null
     }
 
-    init {
 
-    }
 
 }

@@ -45,7 +45,7 @@ class BookDetailFragment : Fragment() {
         viewModelFactory = BookDetailViewModelFactory(arguments.bookId)
         viewModel = ViewModelProvider(this, viewModelFactory)[BookDetailViewModel::class.java]
         binding.viewModel = viewModel
-        binding.lifecycleOwner = this
+        binding.lifecycleOwner = viewLifecycleOwner
 
         return binding.root
     }
