@@ -2,6 +2,7 @@ package com.alisayar.kitapligimuygulamas_proje2
 
 import android.graphics.drawable.Drawable
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -13,6 +14,7 @@ import com.alisayar.kitapligimuygulamas_proje2.network.Item
 import com.alisayar.kitapligimuygulamas_proje2.profile.ProfileFragmentRecyclerAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.google.firebase.Timestamp
 import de.hdodenhof.circleimageview.CircleImageView
 
 @BindingAdapter("booksData")
@@ -55,4 +57,9 @@ fun bindImageAnyUrl(imageView: CircleImageView, imgUrl: String?){
             .load(imgUri)
             .into(imageView)
     }
+}
+
+@BindingAdapter("setTimestamp")
+fun TextView.setTimeFromTimestamp(timestamp: Timestamp){
+    text = convertTimeFromTimestamp(timestamp)
 }

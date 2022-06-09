@@ -8,7 +8,9 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.alisayar.kitapligimuygulamas_proje2.R
+import com.alisayar.kitapligimuygulamas_proje2.convertTimeFromTimestamp
 import com.alisayar.kitapligimuygulamas_proje2.databinding.FragmentDiscoverBinding
+import com.google.firebase.Timestamp
 
 class DiscoverFragment : Fragment() {
 
@@ -25,6 +27,13 @@ class DiscoverFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.discoverRecylerView.adapter = DiscoverFragmentRecyclerAdapter()
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+
+
     }
 
 
