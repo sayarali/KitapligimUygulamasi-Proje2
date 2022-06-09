@@ -21,9 +21,14 @@ class ProfileViewModel(private val userId: String?) : ViewModel(){
     private var firestore: FirebaseFirestore = FirebaseFirestore.getInstance()
 
 
+    private val _followUserId = MutableLiveData<String?>()
+    val followUserId: LiveData<String?> get() = _followUserId
 
     private val _postList = MutableLiveData<List<PostModel>?>()
     val postList: LiveData<List<PostModel>?> get() = _postList
+
+    private val _isFollowing = MutableLiveData<Boolean>()
+    val isFollowing: LiveData<Boolean> get() = _isFollowing
 
     val username = MutableLiveData<String>()
     val ppUrl = MutableLiveData<String>()
@@ -41,6 +46,8 @@ class ProfileViewModel(private val userId: String?) : ViewModel(){
     init {
         getUserDataFirebase(userId)
         getPostDataFirebase(userId)
+        _followUserId.value = userId
+        isFollowingUser(userId)
         _anyUserActive.value = userId != auth.currentUser?.uid
     }
     private fun getUserDataFirebase(userId: String?){
@@ -107,6 +114,55 @@ class ProfileViewModel(private val userId: String?) : ViewModel(){
                 }
 
             }
+        }
+    }
+
+    private fun isFollowingUser(userId: String?){
+        if(userId != null){
+            viewModelScope.launch {
+                firestore.collection("Users").document(userId).collection("Followers").get().addOnSuccessListener {
+                    val documents = it.documents
+                    for (document in documents){
+                        if(document["userId"] == auth.currentUser!!.uid)
+                            _isFollowing.value = true
+                        break
+                    }
+                }
+            }
+
+        }
+    }
+
+
+    fun followUser(userId: String?){
+        if(userId != null){
+            viewModelScope.launch {
+                val userIdHashMap = hashMapOf<String, Any>()
+                userIdHashMap["userId"] = auth.currentUser!!.uid
+                firestore.collection("Users").document(userId).collection("Followers").document(auth.currentUser!!.uid).set(userIdHashMap).addOnSuccessListener {
+                    _isFollowing.value = true
+                }
+                val _userIdHashMap = hashMapOf<String, Any>()
+                _userIdHashMap["userId"] = userId
+                firestore.collection("Users").document(auth.currentUser!!.uid).collection("Following").document(userId).set(_userIdHashMap)
+            }
+
+        }
+    }
+
+    fun unFollowUser(userId: String?){
+        if(userId != null){
+            viewModelScope.launch {
+                val userIdHashMap = hashMapOf<String, Any>()
+                userIdHashMap["userId"] = auth.currentUser!!.uid
+                firestore.collection("Users").document(userId).collection("Followers").document(auth.currentUser!!.uid).delete().addOnSuccessListener {
+                    _isFollowing.value = false
+                }
+                val _userIdHashMap = hashMapOf<String, Any>()
+                _userIdHashMap["userId"] = userId
+                firestore.collection("Users").document(auth.currentUser!!.uid).collection("Following").document(userId).delete()
+            }
+
         }
     }
 

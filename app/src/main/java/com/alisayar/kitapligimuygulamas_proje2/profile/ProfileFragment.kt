@@ -55,10 +55,19 @@ class ProfileFragment : Fragment() {
         viewModel.anyUserActive.observe(viewLifecycleOwner, Observer {
             if(it){
                 binding.profileFollowButton.visibility = View.VISIBLE
-
             } else {
                 binding.profileFollowButton.visibility = View.GONE
                 setHasOptionsMenu(true)
+            }
+        })
+
+        viewModel.isFollowing.observe(viewLifecycleOwner, Observer {
+            if(it){
+                binding.profileFollowButton.visibility = View.GONE
+                binding.profileUnfollowButton.visibility = View.VISIBLE
+            } else {
+                binding.profileFollowButton.visibility = View.VISIBLE
+                binding.profileUnfollowButton.visibility = View.GONE
             }
         })
     }
