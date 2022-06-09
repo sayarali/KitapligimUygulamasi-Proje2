@@ -6,6 +6,7 @@ import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.alisayar.kitapligimuygulamas_proje2.add.AddFragmentRecyclerAdapter
+import com.alisayar.kitapligimuygulamas_proje2.discover.DiscoverFragmentRecyclerAdapter
 import com.alisayar.kitapligimuygulamas_proje2.model.PostModel
 import com.alisayar.kitapligimuygulamas_proje2.network.ImageLinks
 import com.alisayar.kitapligimuygulamas_proje2.network.Item
@@ -23,6 +24,12 @@ fun bindrecyclerView(recyclerView: RecyclerView, booksList: List<Item>?){
 @BindingAdapter("postData")
 fun bindProfileRecyclerView(recyclerView: RecyclerView, postList: List<PostModel>?){
     val adapter = recyclerView.adapter as ProfileFragmentRecyclerAdapter
+    adapter.submitList(postList)
+}
+
+@BindingAdapter("discoverPostData")
+fun bindDiscoverRecyclerView(recyclerView: RecyclerView, postList: List<PostModel>?){
+    val adapter = recyclerView.adapter as DiscoverFragmentRecyclerAdapter
     adapter.submitList(postList)
 }
 
