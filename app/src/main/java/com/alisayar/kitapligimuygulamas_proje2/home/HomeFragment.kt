@@ -12,6 +12,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.alisayar.kitapligimuygulamas_proje2.R
 import com.alisayar.kitapligimuygulamas_proje2.databinding.FragmentHomeBinding
+import com.alisayar.kitapligimuygulamas_proje2.discover.DiscoverFragmentRecyclerAdapter
+import com.alisayar.kitapligimuygulamas_proje2.discover.OnClickListener
+import com.alisayar.kitapligimuygulamas_proje2.discover.UserClickListener
 
 
 class HomeFragment : Fragment() {
@@ -28,12 +31,20 @@ class HomeFragment : Fragment() {
         viewModel = ViewModelProvider(this)[HomeViewModel::class.java]
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
+        binding.homeRecyclerView.adapter = DiscoverFragmentRecyclerAdapter(OnClickListener {
 
+        }, UserClickListener {
+            viewModel.getUserId(it)
+        })
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.homeSwipeRefresh.setOnRefreshListener {
+            viewModel.getPostData()
+        }
 
 
 
@@ -42,6 +53,18 @@ class HomeFragment : Fragment() {
                 val action = HomeFragmentDirections.actionHomeFragmentToAddFragment()
                 findNavController().navigate(action)
                 viewModel.goAddFragmentComplete()
+            }
+        })
+
+        viewModel.isRefreshing.observe(viewLifecycleOwner, Observer {
+            binding.homeSwipeRefresh.isRefreshing = it
+        })
+
+        viewModel.userId.observe(viewLifecycleOwner, Observer {
+            if(it != null){
+                val action = HomeFragmentDirections.actionHomeFragmentToProfileFragment(it)
+                findNavController().navigate(action)
+                viewModel.completeNavigateProfile()
             }
         })
 

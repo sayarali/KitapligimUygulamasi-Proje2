@@ -28,10 +28,7 @@ class DiscoverFragmentRecyclerAdapter(private val onClickListener: OnClickListen
         holder.itemView.setOnClickListener {
             onClickListener.onClick(item.postId)
         }
-        holder.binding.discoverUsername.setOnClickListener {
-            userOnclickListener.onClick(item.userModel.id)
-        }
-        holder.binding.discoverUserpp.setOnClickListener {
+        holder.binding.user.setOnClickListener {
             userOnclickListener.onClick(item.userModel.id)
         }
         holder.bind(item)

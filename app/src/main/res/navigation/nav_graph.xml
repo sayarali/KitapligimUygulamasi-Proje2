@@ -8,11 +8,14 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.alisayar.kitapligimuygulamas_proje2.home.HomeFragment"
-        android:label="Kitaplığım"
-        tools:layout="@layout/fragment_home" >
+        android:label="Ana Sayfa"
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_addFragment"
             app:destination="@id/addFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"

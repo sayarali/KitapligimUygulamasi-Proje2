@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -8,21 +9,37 @@
             type="com.alisayar.kitapligimuygulamas_proje2.home.HomeViewModel" />
     </data>
 
-    <FrameLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".home.HomeFragment">
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/home_swipe_refresh"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/home_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                discoverPostData="@{viewModel.postList}"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                />
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
 
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/home_fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:src="@drawable/ic_add"
-            android:onClick="@{() -> viewModel.goAddFragment()}"
             android:layout_margin="16dp"
-            android:contentDescription="Yeni kitap butonu" />
+            android:contentDescription="Yeni kitap butonu"
+            android:onClick="@{() -> viewModel.goAddFragment()}"
+            android:src="@drawable/ic_add"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
-    </FrameLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

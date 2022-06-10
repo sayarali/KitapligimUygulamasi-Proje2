@@ -43,29 +43,35 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/discover_userpp"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_gravity="center"
-                        android:layout_margin="4dp"
-                        anyImageUrl="@{postModel.userModel.ppUrl}"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-
-                        android:id="@+id/discover_username"
+                    <LinearLayout
+                        android:id="@+id/user"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_margin="4dp"
-                        android:layout_marginStart="32dp"
-                        android:text="@{postModel.userModel.username}"
-                        app:layout_constraintBottom_toBottomOf="@+id/discover_userpp"
-                        app:layout_constraintStart_toEndOf="@+id/discover_userpp"
-                        app:layout_constraintTop_toTopOf="@+id/discover_userpp" />
+                        android:orientation="horizontal"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/discover_userpp"
+                            anyImageUrl="@{postModel.userModel.ppUrl}"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_gravity="center"
+                            android:layout_margin="4dp" />
+
+                        <TextView
+
+                            android:id="@+id/discover_username"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="4dp"
+                            android:layout_marginStart="32dp"
+                            android:text="@{postModel.userModel.username}" />
+                    </LinearLayout>
+
+
+
 
                     <ImageView
                         android:id="@+id/imageView6"
@@ -73,9 +79,9 @@
                         android:layout_height="20dp"
                         android:layout_marginEnd="8dp"
                         android:src="@drawable/ic_star"
-                        app:layout_constraintBottom_toBottomOf="@+id/discover_username"
+                        app:layout_constraintBottom_toBottomOf="@+id/user"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/discover_username" />
+                        app:layout_constraintTop_toTopOf="@+id/user" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -98,7 +104,7 @@
                         android:layout_marginTop="4dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/discover_userpp" />
+                        app:layout_constraintTop_toBottomOf="@+id/user" />
 
 
                     <TextView
