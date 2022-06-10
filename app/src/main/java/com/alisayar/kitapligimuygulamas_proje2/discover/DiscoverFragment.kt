@@ -13,6 +13,9 @@ import com.alisayar.kitapligimuygulamas_proje2.R
 import com.alisayar.kitapligimuygulamas_proje2.convertTimeFromTimestamp
 import com.alisayar.kitapligimuygulamas_proje2.databinding.FragmentDiscoverBinding
 import com.google.firebase.Timestamp
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class DiscoverFragment : Fragment() {
 
@@ -50,6 +53,14 @@ class DiscoverFragment : Fragment() {
             if(it != null){
                 println("post fragmente gidiliyoooor $it")
             }
+        })
+
+        binding.discoverSwipeRefresh.setOnRefreshListener {
+            viewModel.getPostDataFirebase()
+        }
+
+        viewModel.isRefreshing.observe(viewLifecycleOwner, Observer {
+            binding.discoverSwipeRefresh.isRefreshing = it
         })
 
     }

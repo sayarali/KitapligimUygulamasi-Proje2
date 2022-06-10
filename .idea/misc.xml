@@ -32,6 +32,7 @@
         <entry key="app/src/main/res/layout/profile_fragment_recycler_row.xml" value="0.3328125" />
         <entry key="app/src/main/res/menu/barcode_menu.xml" value="0.3328125" />
         <entry key="app/src/main/res/menu/drawer_menu.xml" value="0.3328125" />
+        <entry key="app/src/main/res/menu/home_profile_menu.xml" value="0.3328125" />
         <entry key="app/src/main/res/menu/profile_menu.xml" value="0.3328125" />
       </map>
     </option>

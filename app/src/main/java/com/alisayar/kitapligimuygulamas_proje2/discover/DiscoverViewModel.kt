@@ -28,15 +28,19 @@ class DiscoverViewModel: ViewModel() {
     private val _postId = MutableLiveData<String?>()
     val postId: LiveData<String?> get() = _postId
 
+    private val _isRefreshing = MutableLiveData<Boolean>()
+    val isRefreshing: LiveData<Boolean> get() = _isRefreshing
+
     init {
-        viewModelScope.launch(Dispatchers.IO) {
+
             getPostDataFirebase()
-        }
+
 
     }
 
-    private suspend fun getPostDataFirebase(){
+    fun getPostDataFirebase(){
 
+        _isRefreshing.value = true
         viewModelScope.launch {
             val list = arrayListOf<PostModel>()
             firestore.collection("Posts").get().addOnSuccessListener {
@@ -61,6 +65,7 @@ class DiscoverViewModel: ViewModel() {
                         it.time
                     }
                     _postList.value = list
+                    _isRefreshing.value = false
                 }
 
             }
@@ -69,40 +74,6 @@ class DiscoverViewModel: ViewModel() {
     }
 
 
-    private fun getPostDataFirebaseCor(){
-
-
-
-        viewModelScope.launch {
-            val list = arrayListOf<PostModel>()
-            firestore.collection("Posts").get().addOnSuccessListener {
-                val documents = it.documents
-                viewModelScope.launch() {
-                    for (document in documents){
-                        var userModel: UserModel = UserModel("", "", "", "", "")
-                        firestore.collection("Users").document(document["userId"].toString()).get().addOnSuccessListener { doc ->
-                            userModel = UserModel(doc["id"].toString(), doc["username"].toString(), doc["email"].toString(), doc["bioText"].toString(), doc["ppUrl"].toString())
-                        }
-                        val postId = document.id
-                        val bookModel = BooksApi.retrofitService.getBookDetails(document["bookId"].toString())
-
-                        val comment = document["comment"].toString()
-                        val rating = document["rating"].toString()
-                        val time = document["time"] as Timestamp
-                        val postModel = PostModel(postId, bookModel, userModel, rating.toFloatOrNull(), comment, time)
-
-                        list.add(postModel)
-                    }
-                    list.sortByDescending {
-                        it.time
-                    }
-                    _postList.value = list
-                }
-
-            }
-        }
-
-    }
 
 
     fun getUserId(userId: String?){
