@@ -25,8 +25,6 @@ class DiscoverViewModel: ViewModel() {
     private val _userId = MutableLiveData<String?>()
     val userId: LiveData<String?> get() = _userId
 
-    private val _postId = MutableLiveData<String?>()
-    val postId: LiveData<String?> get() = _postId
 
     private val _isRefreshing = MutableLiveData<Boolean>()
     val isRefreshing: LiveData<Boolean> get() = _isRefreshing
@@ -85,12 +83,4 @@ class DiscoverViewModel: ViewModel() {
         _userId.value = null
     }
 
-    fun getPostId(postId: String?){
-        if(postId != null)
-            _postId.value = postId
-    }
-
-    fun completeNavigatePost(){
-        _postId.value = null
-    }
 }

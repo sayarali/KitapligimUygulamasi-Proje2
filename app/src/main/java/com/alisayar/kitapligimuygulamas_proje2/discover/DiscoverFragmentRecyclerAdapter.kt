@@ -26,7 +26,7 @@ class DiscoverFragmentRecyclerAdapter(private val onClickListener: OnClickListen
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
         holder.itemView.setOnClickListener {
-            onClickListener.onClick(item.postId)
+            onClickListener.onClick(item)
         }
         holder.binding.user.setOnClickListener {
             userOnclickListener.onClick(item.userModel.id)
@@ -35,8 +35,8 @@ class DiscoverFragmentRecyclerAdapter(private val onClickListener: OnClickListen
     }
 }
 
-class OnClickListener(val clickListener: (postId: String?) -> Unit){
-    fun onClick(postId: String?) = clickListener(postId)
+class OnClickListener(val clickListener: (postId: PostModel) -> Unit){
+    fun onClick(postModel: PostModel) = clickListener(postModel)
 }
 class UserClickListener(val clickListener: (userId: String?) -> Unit){
     fun onClick(userId: String?) = clickListener(userId)

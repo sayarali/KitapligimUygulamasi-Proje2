@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_homeFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_postFragment"
+            app:destination="@id/postFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
@@ -35,6 +38,9 @@
         <action
             android:id="@+id/action_discoverFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_discoverFragment_to_postFragment"
+            app:destination="@id/postFragment" />
     </fragment>
     <fragment
         android:id="@+id/addFragment"
@@ -67,5 +73,16 @@
             app:destination="@id/homeFragment"
             app:popUpTo="@id/homeFragment"
             app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/postFragment"
+        android:name="com.alisayar.kitapligimuygulamas_proje2.post.PostFragment"
+        android:label="Gönderi">
+        <argument
+            android:name="postModel"
+            app:argType="com.alisayar.kitapligimuygulamas_proje2.model.PostModel" />
+        <action
+            android:id="@+id/action_postFragment_to_bookDetailFragment"
+            app:destination="@id/bookDetailFragment" />
     </fragment>
 </navigation>

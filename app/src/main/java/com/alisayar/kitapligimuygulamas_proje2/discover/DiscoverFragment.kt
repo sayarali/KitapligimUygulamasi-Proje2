@@ -31,7 +31,8 @@ class DiscoverFragment : Fragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
         binding.discoverRecylerView.adapter = DiscoverFragmentRecyclerAdapter(OnClickListener {
-            viewModel.getPostId(it)
+            val action = DiscoverFragmentDirections.actionDiscoverFragmentToPostFragment(it)
+            findNavController().navigate(action)
         }, UserClickListener {
             viewModel.getUserId(it)
         })
@@ -49,11 +50,7 @@ class DiscoverFragment : Fragment() {
             }
         })
 
-        viewModel.postId.observe(viewLifecycleOwner, Observer {
-            if(it != null){
-                println("post fragmente gidiliyoooor $it")
-            }
-        })
+
 
         binding.discoverSwipeRefresh.setOnRefreshListener {
             viewModel.getPostDataFirebase()

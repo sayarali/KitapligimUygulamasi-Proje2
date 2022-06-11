@@ -32,7 +32,8 @@ class HomeFragment : Fragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
         binding.homeRecyclerView.adapter = DiscoverFragmentRecyclerAdapter(OnClickListener {
-
+            val action = HomeFragmentDirections.actionHomeFragmentToPostFragment(it)
+            findNavController().navigate(action)
         }, UserClickListener {
             viewModel.getUserId(it)
         })
