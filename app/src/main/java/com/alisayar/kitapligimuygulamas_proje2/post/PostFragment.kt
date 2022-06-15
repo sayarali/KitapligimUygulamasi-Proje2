@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.alisayar.kitapligimuygulamas_proje2.R
 import com.alisayar.kitapligimuygulamas_proje2.databinding.FragmentPostBinding
@@ -22,19 +23,19 @@ class PostFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_post, container, false)
-
-
-
+        val argument = PostFragmentArgs.fromBundle(requireArguments())
+        viewModelFactory = PostViewModelFactory(argument.postModel)
+        viewModel = ViewModelProvider(this, viewModelFactory)[PostViewModel::class.java]
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val argument = PostFragmentArgs.fromBundle(requireArguments())
-        binding.postModel = argument.postModel
-        binding.lifecycleOwner = viewLifecycleOwner
-        binding.postBook.setOnClickListener {
 
+        binding.postBook.setOnClickListener {
+            val argument = PostFragmentArgs.fromBundle(requireArguments())
             val action = argument.postModel.bookModel?.id?.let { it1 ->
                 PostFragmentDirections.actionPostFragmentToBookDetailFragment(
                     it1
