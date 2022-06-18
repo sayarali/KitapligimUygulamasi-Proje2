@@ -11,6 +11,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.alisayar.kitapligimuygulamas_proje2.R
 import com.alisayar.kitapligimuygulamas_proje2.databinding.FragmentProfileBinding
@@ -23,6 +24,7 @@ class ProfileFragment : Fragment() {
     private lateinit var viewModelFactory: ProfileViewModelFactory
     private lateinit var viewModel: ProfileViewModel
     private lateinit var auth: FirebaseAuth
+    var userId = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,7 +32,7 @@ class ProfileFragment : Fragment() {
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile, container, false)
         auth = FirebaseAuth.getInstance()
-        var userId = auth.currentUser!!.uid
+        userId = auth.currentUser!!.uid
         arguments?.let {
             if(it.get("userId") != null){
                 userId = it.get("userId").toString()
@@ -70,6 +72,25 @@ class ProfileFragment : Fragment() {
                 binding.profileUnfollowButton.visibility = View.GONE
             }
         })
+
+        binding.profileRead.setOnClickListener {
+            val action = ProfileFragmentDirections.actionProfileFragmentToReadsFragment(userId)
+            findNavController().navigate(action)
+        }
+
+        binding.profileToberead.setOnClickListener {
+            Toast.makeText(requireContext(), "Okunacaklara git $userId", Toast.LENGTH_SHORT).show()
+        }
+
+        binding.profileFollowers.setOnClickListener {
+            Toast.makeText(requireContext(), "Takipçilere git $userId", Toast.LENGTH_SHORT).show()
+        }
+
+        binding.profileFollowing.setOnClickListener {
+            Toast.makeText(requireContext(), "Takip edilenlere git $userId", Toast.LENGTH_SHORT).show()
+        }
+
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

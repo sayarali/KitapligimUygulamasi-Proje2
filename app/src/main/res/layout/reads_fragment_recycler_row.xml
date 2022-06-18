@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="bookModel"
+            type="com.alisayar.kitapligimuygulamas_proje2.network.Item" />
+    </data>
+
+    <LinearLayout
+        android:id="@+id/reads_recycler_book"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="8dp">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="75dp"
+            android:scaleType="centerCrop"
+            imageUrl="@{bookModel.volumeInfo.imageLinks}"/>
+
+        <TextView
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="@{bookModel.volumeInfo.title}"
+            android:layout_gravity="center"
+            android:layout_marginStart="8dp"/>
+
+        <ImageView
+            android:id="@+id/reads_recycler_delete"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_delete"/>
+
+
+
+    </LinearLayout>
+</layout>

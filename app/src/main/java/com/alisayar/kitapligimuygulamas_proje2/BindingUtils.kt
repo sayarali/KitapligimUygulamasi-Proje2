@@ -12,6 +12,7 @@ import com.alisayar.kitapligimuygulamas_proje2.model.PostModel
 import com.alisayar.kitapligimuygulamas_proje2.network.ImageLinks
 import com.alisayar.kitapligimuygulamas_proje2.network.Item
 import com.alisayar.kitapligimuygulamas_proje2.profile.ProfileFragmentRecyclerAdapter
+import com.alisayar.kitapligimuygulamas_proje2.profile.reads.ReadsRecyclerAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.firebase.Timestamp
@@ -33,6 +34,12 @@ fun bindProfileRecyclerView(recyclerView: RecyclerView, postList: List<PostModel
 fun bindDiscoverRecyclerView(recyclerView: RecyclerView, postList: List<PostModel>?){
     val adapter = recyclerView.adapter as DiscoverFragmentRecyclerAdapter
     adapter.submitList(postList)
+}
+
+@BindingAdapter("bookData")
+fun bindBookRecycler(recyclerView: RecyclerView, booksList: List<Item>?){
+    val adapter = recyclerView.adapter as ReadsRecyclerAdapter
+    adapter.submitList(booksList)
 }
 
 @BindingAdapter("imageUrl")

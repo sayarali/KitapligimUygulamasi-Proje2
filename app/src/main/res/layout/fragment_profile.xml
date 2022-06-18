@@ -9,6 +9,7 @@
             type="com.alisayar.kitapligimuygulamas_proje2.profile.ProfileViewModel" />
 
 
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -54,6 +55,7 @@
                         android:orientation="horizontal">
 
                         <LinearLayout
+                            android:id="@+id/profile_post"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="8dp"
@@ -74,6 +76,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/profile_followers"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="8dp"
@@ -94,6 +97,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/profile_following"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="8dp"
@@ -121,6 +125,7 @@
                         android:orientation="horizontal">
 
                         <LinearLayout
+                            android:id="@+id/profile_toberead"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="8dp"
@@ -141,6 +146,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/profile_read"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="8dp"
