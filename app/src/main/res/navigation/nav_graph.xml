@@ -32,6 +32,9 @@
         <action
             android:id="@+id/action_profileFragment_to_readsFragment"
             app:destination="@id/readsFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_toBeReadsFragment"
+            app:destination="@id/toBeReadsFragment" />
     </fragment>
     <fragment
         android:id="@+id/discoverFragment"
@@ -91,12 +94,23 @@
     <fragment
         android:id="@+id/readsFragment"
         android:name="com.alisayar.kitapligimuygulamas_proje2.profile.reads.ReadsFragment"
-        android:label="ReadsFragment" >
+        android:label="Okunan Kitaplar">
         <argument
             android:name="userId"
             app:argType="string" />
         <action
             android:id="@+id/action_readsFragment_to_bookDetailFragment"
+            app:destination="@id/bookDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/toBeReadsFragment"
+        android:name="com.alisayar.kitapligimuygulamas_proje2.profile.tobereads.ToBeReadsFragment"
+        android:label="Okunacak Kitaplar">
+        <argument
+            android:name="userId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_toBeReadsFragment_to_bookDetailFragment"
             app:destination="@id/bookDetailFragment" />
     </fragment>
 </navigation>

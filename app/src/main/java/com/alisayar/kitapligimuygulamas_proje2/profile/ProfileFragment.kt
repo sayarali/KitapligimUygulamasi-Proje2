@@ -79,7 +79,8 @@ class ProfileFragment : Fragment() {
         }
 
         binding.profileToberead.setOnClickListener {
-            Toast.makeText(requireContext(), "Okunacaklara git $userId", Toast.LENGTH_SHORT).show()
+            val action = ProfileFragmentDirections.actionProfileFragmentToToBeReadsFragment(userId)
+            findNavController().navigate(action)
         }
 
         binding.profileFollowers.setOnClickListener {

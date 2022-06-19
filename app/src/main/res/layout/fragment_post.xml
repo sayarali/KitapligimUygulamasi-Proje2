@@ -65,6 +65,18 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout5" />
 
+            <RatingBar
+                android:id="@+id/ratingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:rating="@{viewModel.postModelLive.rating}"
+                style="@style/Widget.AppCompat.RatingBar.Small"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+
             <TextView
                 android:id="@+id/textView14"
                 android:layout_width="wrap_content"
@@ -74,7 +86,7 @@
                 android:text="Kitap bilgileri:"
                 android:textStyle="bold|italic"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView6" />
+                app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
