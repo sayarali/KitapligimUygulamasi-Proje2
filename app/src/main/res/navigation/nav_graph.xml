@@ -38,6 +38,9 @@
         <action
             android:id="@+id/action_profileFragment_to_postFragment"
             app:destination="@id/postFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_editProfileFragment"
+            app:destination="@id/editProfileFragment" />
     </fragment>
     <fragment
         android:id="@+id/discoverFragment"
@@ -116,4 +119,8 @@
             android:id="@+id/action_toBeReadsFragment_to_bookDetailFragment"
             app:destination="@id/bookDetailFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.alisayar.kitapligimuygulamas_proje2.profile.edit.EditProfileFragment"
+        android:label="Profili Düzenle" />
 </navigation>

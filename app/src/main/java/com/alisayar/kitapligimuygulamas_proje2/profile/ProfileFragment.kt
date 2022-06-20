@@ -105,7 +105,8 @@ class ProfileFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             R.id.edit_profile_item -> {
-                Toast.makeText(requireContext(), "Profili düzenleme", Toast.LENGTH_SHORT).show()
+                val action = ProfileFragmentDirections.actionProfileFragmentToEditProfileFragment()
+                findNavController().navigate(action)
             }
             R.id.sign_out_item -> {
                 auth.signOut()
